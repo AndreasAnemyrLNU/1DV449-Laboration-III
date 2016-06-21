@@ -15,9 +15,10 @@ namespace MVC.Models.WebServices
 
             public IEnumerable<Message> GetMessages()
             {
+                bool pagination = false;
 
                 //Switch to lon & lat!
-                var uri = $"http://api.sr.se/api/v2/traffic/messages";
+                var uri = $"http://api.sr.se/api/v2/traffic/messages?pagination={pagination}";
 
                 string rawXML = string.Empty;
 
@@ -38,22 +39,22 @@ namespace MVC.Models.WebServices
                 from message in xml.Descendants("sr").Elements("messages").Elements("message")
                 select message;
 
-                
-                return
 
-                        (from message in messages
-                         select new Message
-                         {
-                             Id             = int.Parse(message.Attribute("id").Value),
-                             Priority       = int.Parse(message.Attribute("priority").Value),
-                             Createddate    = DateTime.Parse(message.Element("createddate").Value),
-                             Title          = message.Element("title").Value.ToString(),
-                             Exactlocation  = message.Element("exactlocation").Value.ToString(),
-                             Description    = message.Element("description").Value.ToString(),
-                             Latitude       = float.Parse(message.Element("latitude").Value),
-                             Longitude      = float.Parse(message.Element("longitude").Value),
-                             Category       = int.Parse(message.Attribute("category").Value),
-                             Subcategory    = message.Element("subcategory").Value
+            return
+
+                    (from message in messages
+                     select new Message
+                     {
+                         Id = int.Parse(message.Attribute("id").Value),
+                         Priority = int.Parse(message.Attribute("priority").Value),
+                         Createddate = DateTime.Parse(message.Element("createddate").Value),
+                         Title = message.Element("title").Value.ToString(),
+                         Exactlocation = message.Element("exactlocation").Value,
+                         Description = message.Element("description").Value,
+                         Latitude = message.Element("latitude").Value,
+                         Longitude = message.Element("longitude").Value,
+                         Category = int.Parse(message.Element("category").Value),
+                         Subcategory = message.Element("subcategory").Value
                          }).ToList<Message>();
                 
                 }

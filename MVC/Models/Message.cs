@@ -18,8 +18,8 @@ namespace MVC.Models
         public string Title { get; set; }              // Meddelandets rubrik/plats
         public string Exactlocation { get; set; }      // Detaljerad beskrivning av plats
         public string Description { get; set; }        // Beskrivande text för meddelandet
-        public float Latitude { get; set; }            // Meddelandets position
-        public float Longitude { get; set; }           // Meddelandets position { get; set; }
+        public string Latitude { get; set; }            // Meddelandets position
+        public string Longitude { get; set; }           // Meddelandets position { get; set; }
         public int Category { get; set; }              //Meddelandets kategori(0 = Vägtrafik, 1 = Kollektivtrafik, 2 = Planerad störning, 3 = Övrigt)
         public string Subcategory { get; set; }        // Meddelandets underkategori
     }
