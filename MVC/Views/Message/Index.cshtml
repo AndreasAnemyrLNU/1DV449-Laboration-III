@@ -36,34 +36,48 @@
 </div>
 
 <script>
-        var map;
-        function initMap() {
-        
-            map = new google.maps.Map(document.getElementById('map'), {
+    var map;
+    //Keep track if user has openen an infowindow previos. Close if not undefined!
+    map.last = undefined;
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
             center:  {lat: 60, lng: 15},
             zoom: 4
-            });
+        });
 
 
-            @foreach (var item in Model)
-            {
-            <text> 
-            var marker = new google.maps.Marker({
-                position: { lat: @item.Latitude, lng: @item.Longitude }, 
-                title: "Hello World!"
-            });
+        @foreach (var item in Model)
+        {
+            <text>
 
-            var infowindow = new google.maps.InfoWindow({
-                content: "Your'e the hero!"
-            });
-            //Add listener for info window
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
-            });
 
-            marker.setMap(map);                
-            </text>          
-            }          
+                var marker = new google.maps.Marker()
+                marker.setTitle("@Html.Raw(item.Title)")
+                marker.setPosition({ lat: @item.Latitude, lng: @item.Longitude })
+                marker.setMap(map);
+
+                var mytext = "@Html.Raw(item.Title)"
+                var infowindow = new google.maps.InfoWindow({
+                content: mytext
+                });
+
+                (function(infowindow, marker){google.maps.event.addListener(marker, 'click', function() {
+                    //Always close last opened info window!
+                    if(map.last != undefined)
+                    {
+                        map.last.close();
+                    }
+                    
+                    infowindow.open(map, marker);
+                    map.last = infowindow;
+                });})(infowindow, marker)
+
+
+        </text>
         }
-
+    }
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRQEa5tgji28sfF62K_GodXjGJod53Zrs&callback=initMap"
+        async defer></script>
