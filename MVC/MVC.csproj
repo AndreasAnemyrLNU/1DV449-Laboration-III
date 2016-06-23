@@ -216,6 +216,7 @@
     <Content Include="Views\Message\Contact.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Message.cshtml" />
+    <Content Include="Views\Message\Message-Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

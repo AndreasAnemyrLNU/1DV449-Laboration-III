@@ -53,21 +53,21 @@
 
 
                 var marker = new google.maps.Marker()
+                marker.setLabel("@item.Priority")
                 marker.setTitle("@Html.Raw(item.Title)")
                 marker.setPosition({ lat: @item.Latitude, lng: @item.Longitude })
                 marker.setMap(map);
 
-                var mytext = "@Html.Raw(item.Title)"
-                var infowindow = new google.maps.InfoWindow({
-                content: mytext
+                var messageinfo = @Html.Partial("Message-Info", item)
+                var infowindow = new google.maps.InfoWindow({    
+                    content: messageinfo
                 });
 
                 (function(infowindow, marker){google.maps.event.addListener(marker, 'click', function() {
                     //Always close last opened info window!
                     if(map.last != undefined)
-                    {
                         map.last.close();
-                    }
+
                     
                     infowindow.open(map, marker);
                     map.last = infowindow;

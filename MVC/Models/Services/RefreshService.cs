@@ -25,7 +25,7 @@ namespace MVC.Models.Services
 
             _context.SaveChanges();
             */
-            return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(5);
+            return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(100);
         }
     }
 }

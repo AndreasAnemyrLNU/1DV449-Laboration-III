@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace MVC.Models
 
         public int Id { get; set; }             // Meddelandets unika id
         public int Priority { get; set; }       // Meddelandets prioritet(1 = Mycket allvarlig händelse, 2 = Stor händelse, 3 = Störning, 4 = Information, 5 = Mindre störning)
+        [DisplayName("Skapades")]
         public DateTime Createddate { get; set; }      // När meddelandet skapades
         public string Title { get; set; }              // Meddelandets rubrik/plats
         public string Exactlocation { get; set; }      // Detaljerad beskrivning av plats
