@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B3BD375D-2C3B-4F3B-BB47-B57F2652CE1E}</ProjectGuid>
+    <ProjectGuid>{2D2A4C27-F92B-4D79-AFE0-E546F201CAE4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>API.Tests</RootNamespace>

@@ -35,7 +35,8 @@ namespace MVC.Models.WebServices
 
                 XDocument xml = XDocument.Parse(rawXML);
 
-                IEnumerable<XElement> messages =
+
+            IEnumerable<XElement> messages =
                 from message in xml.Descendants("sr").Elements("messages").Elements("message")
                 select message;
 

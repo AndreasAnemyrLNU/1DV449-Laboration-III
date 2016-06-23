@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MVC.Models.Message>
+
+@{
+    ViewBag.Title = "Lista Meddelande";
+}
+
+
+<div class="container">
+    
+    <!-- Traffic Messages start -->
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel panel-heading">
+                Trafikmeddelanden
+            </div>
+            <div class="panel panel-body">
+                @Html.DisplayFor(m => m)
+            </div>
+        </div>
+    </div>
+    <!-- Traffic Messages end -->
+
+    <!-- Google Map API map Sweden start -->
+    <div class="col-lg-6">
+        <div class="panel panel-info">
+            <div class="panel panel-heading">
+                Trafikkartan - Sverige
+            </div>
+            <div id="map-panel" class="panel panel-body">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>       
+    <!-- Google Map API  map Sweden cloed -->
+
+</div>
+
+<script>
+        var map;
+        function initMap() {
+        
+            map = new google.maps.Map(document.getElementById('map'), {
+            center:  {lat: 60, lng: 15},
+            zoom: 4
+            });
+
+
+            @foreach (var item in Model)
+            {
+            <text> 
+            var marker = new google.maps.Marker({
+                position: { lat: @item.Latitude, lng: @item.Longitude }, 
+                title: "Hello World!"
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+                content: "Your'e the hero!"
+            });
+            //Add listener for info window
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+
+            marker.setMap(map);                
+            </text>          
+            }          
+        }
+
+</script>

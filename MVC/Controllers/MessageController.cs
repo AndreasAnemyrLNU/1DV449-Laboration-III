@@ -5,24 +5,21 @@ using System.Web;
 using System.Web.Mvc;
 using MVC.Models.DAL;
 using MVC.Models.WebServices;
+using MVC.Models.Services;
 
 namespace MVC.Controllers
 {
-    public class HomeController : Controller
+    public class MessageController : Controller
     {
+
+
         public ActionResult Index()
         {
+            var refreshService = new TrafficMessageService();
 
-
-
-            var messages = new SR().GetMessages();
-
-
-            var _context = new _1dv449_aa223ig_Mashup();
-
-            //_context.(new Models.Message());
-
-            return View();
+            var messages = refreshService.RefreshTrafficMessage();
+   
+            return View(messages);
         }
 
         public ActionResult About()
