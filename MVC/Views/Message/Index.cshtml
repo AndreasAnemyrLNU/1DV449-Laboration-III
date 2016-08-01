@@ -37,47 +37,74 @@
 
 <script>
     var map;
+    var aa = { markers : [] };
     //Keep track if user has openen an infowindow previos. Close if not undefined!
     map.last = undefined;
     function initMap() {
 
         map = new google.maps.Map(document.getElementById('map'), {
             center:  {lat: 60, lng: 15},
-            zoom: 4
+            zoom: 6
         });
-
 
         @foreach (var item in Model)
         {
             <text>
 
+        
+        var marker = new google.maps.Marker()
+        marker.setIcon("http://maps.google.com/mapfiles/kml/paddle/1.png");
+        marker.setTitle("@Html.Raw(item.Createddate)");
+        marker.setPosition({ lat: @item.Latitude, lng: @item.Longitude });
+        marker.setMap(map);
 
-                var marker = new google.maps.Marker()
-                marker.setLabel("@item.Priority")
-                marker.setTitle("@Html.Raw(item.Title)")
-                marker.setPosition({ lat: @item.Latitude, lng: @item.Longitude })
-                marker.setMap(map);
-
-                var messageinfo = @Html.Partial("Message-Info", item)
-                var infowindow = new google.maps.InfoWindow({    
+                var messageinfo = @Html.Partial("Message-Info", item);
+                var infowindow = new google.maps.InfoWindow({
                     content: messageinfo
                 });
+
 
                 (function(infowindow, marker){google.maps.event.addListener(marker, 'click', function() {
                     //Always close last opened info window!
                     if(map.last != undefined)
                         map.last.close();
 
-                    
+
                     infowindow.open(map, marker);
                     map.last = infowindow;
                 });})(infowindow, marker)
-
-
-        </text>
+                    
+            aa.markers.push(marker);
+            </text>
         }
-    }
+        }
+</script>
+
+<script>
+    var html = node = document.querySelector(".messages-container");
+    html.addEventListener("click", function(e)
+    {
+        e.preventDefault;
+        var  clickedMessage = e.target.parentNode.querySelector(".created-date").innerHTML;
+
+        aa.markers.forEach.call(aa.markers, function(marker) 
+        {  
+            if(Date.parse(marker.title) == Date.parse(clickedMessage))
+            {
+                marker.setZIndex(999);
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+                map.panTo(marker.getPosition());
+                //Reset marker
+                setTimeout(function(){ 
+                    marker.setAnimation(null); 
+                    marker.setIcon("http://maps.google.com/mapfiles/ms/icons/red.png");
+                }, 750);
+            }
+        })
+    })
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRQEa5tgji28sfF62K_GodXjGJod53Zrs&callback=initMap"
-        async defer></script>
+        async defer>
+</script>

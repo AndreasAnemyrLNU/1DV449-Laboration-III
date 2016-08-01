@@ -1,79 +1,80 @@
 ﻿@model MVC.Models.Message
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
+<a id="@Html.DisplayFor(model => model.Id)" href="#">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Priority)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Priority)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Createddate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Createddate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Createddate)
-        </dd>
+            <dd class="created-date">
+                @Html.DisplayFor(model => model.Createddate)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Exactlocation)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Exactlocation)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Exactlocation)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Exactlocation)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
+            <!--<dt>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </dt>-->
 
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
+            <!--<dd>
+                @Html.DisplayFor(model => model.Latitude)
+            </dd>-->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
+            <!--<dt>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </dt>-->
 
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
+            <!--<dd>
+                @Html.DisplayFor(model => model.Longitude)
+            </dd>-->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Subcategory)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subcategory)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Subcategory)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Subcategory)
+            </dd>
 
-    </dl>
-</div>
-
+        </dl>
+    </div>
+</a>
