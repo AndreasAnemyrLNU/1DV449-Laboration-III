@@ -16,16 +16,80 @@ namespace MVC.Models.Services
         public IEnumerable<Message> RefreshTrafficMessage()
         {
             SR sr = new SR();
-   
-            /*
-            foreach(var message in sr.GetMessages())
+
+            if (!PreviousMessageExists())
             {
-                _context.CreateMessage(message);
+                foreach (var message in sr.GetMessages())
+                {
+                    _context.CreateMessage(message);
+                }
             }
 
-            _context.SaveChanges();
-            */
-            return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(100);
+            if (UseCachedMessages())
+            {
+                return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(10);
+            }
+            else
+            {
+                //Delete old messages
+                foreach (var message in _context.Messages)
+                {
+                    _context.DeleteMessage(message);
+                }
+
+                _context.SaveChanges();
+
+                //Cache new messages
+                foreach (var message in sr.GetMessages())
+                {
+                    _context.CreateMessage(message);
+                }
+
+                _context.SaveChanges();
+
+                return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(10);
+            }
+
+        }
+
+        /// <summary>
+        /// Check if there is existing messages in db.
+        /// </summary>
+        /// <returns></returns>
+        private bool PreviousMessageExists()
+        {
+
+            IEnumerable<Message> messages = _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take<Message>(1);
+
+            if(messages.SingleOrDefault() != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool UseCachedMessages()
+        {
+            if (PreviousMessageExists())
+            {
+                try
+                {
+                    var message = _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).First();
+
+                    if (message.CacheSaved.AddMinutes(1) < DateTime.Now)
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                    //Empty
+                }
+
+
+            }
+            return false;
         }
     }
 }

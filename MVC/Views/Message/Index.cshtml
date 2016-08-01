@@ -5,33 +5,33 @@
 }
 
 
-<div class="container">
+<div class="container" id="main-container">
     
-    <!-- Traffic Messages start -->
-    <div class="col-lg-6">
-        <div class="panel panel-info">
-            <div class="panel panel-heading">
-                Trafikmeddelanden
-            </div>
-            <div class="panel panel-body">
-                @Html.DisplayFor(m => m)
-            </div>
-        </div>
-    </div>
-    <!-- Traffic Messages end -->
 
-    <!-- Google Map API map Sweden start -->
-    <div class="col-lg-6">
-        <div class="panel panel-info">
-            <div class="panel panel-heading">
-                Trafikkartan - Sverige
-            </div>
-            <div id="map-panel" class="panel panel-body">
-                <div id="map"></div>
+        <!-- Traffic Messages start -->
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="panel panel-heading">
+                    Trafikmeddelanden
+                </div>
+                <div class="panel panel-body messages-container">
+                    @Html.DisplayFor(m => m)     
+                </div>
             </div>
         </div>
-    </div>       
-    <!-- Google Map API  map Sweden cloed -->
+        <!-- Traffic Messages end -->
+        <!-- Google Map API map Sweden start -->
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="panel panel-heading">
+                    Trafikkartan - Sverige
+                </div>
+                <div id="map-panel" class="panel panel-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Google Map API  map Sweden cloed -->
 
 </div>
 

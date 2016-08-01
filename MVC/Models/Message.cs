@@ -24,5 +24,6 @@ namespace MVC.Models
         public string Longitude { get; set; }           // Meddelandets position { get; set; }
         public int Category { get; set; }              //Meddelandets kategori(0 = Vägtrafik, 1 = Kollektivtrafik, 2 = Planerad störning, 3 = Övrigt)
         public string Subcategory { get; set; }        // Meddelandets underkategori
+        public DateTime CacheSaved { get; set; }
     }
 }

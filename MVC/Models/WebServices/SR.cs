@@ -55,7 +55,8 @@ namespace MVC.Models.WebServices
                          Latitude = message.Element("latitude").Value,
                          Longitude = message.Element("longitude").Value,
                          Category = int.Parse(message.Element("category").Value),
-                         Subcategory = message.Element("subcategory").Value
+                         Subcategory = message.Element("subcategory").Value,
+                         CacheSaved = DateTime.Now,
                          }).ToList<Message>();
                 
                 }

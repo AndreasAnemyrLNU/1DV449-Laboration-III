@@ -32,3 +32,14 @@ textarea {
 #map {
     height: 100%;
 }
+
+.messages-container{
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+#main-container{
+    margin-top: 20px;
+}
