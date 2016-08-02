@@ -10,10 +10,12 @@ namespace MVC.Models
     {
         public IEnumerable<Message> Messages { get; set; }
 
+        public string Cat { get; set; }
+
         public IEnumerable<string> subCategories = new string[]
         {
                 "Buss",
-                "Buööer",
+                "Buller",
                 "Färja",
                 "Hälsa och sjukvård",
                 "Miljö",

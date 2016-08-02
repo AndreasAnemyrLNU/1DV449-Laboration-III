@@ -4,9 +4,27 @@
     ViewBag.Title = "Lista Meddelande";
 }
 
-
 <div class="container" id="main-container">
     
+        <!-- Filter Start -->
+        <div class="container">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Specificera Filtreringsalternativ!
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group">
+                        @foreach (string category in Model.subCategories)
+                        {
+
+                            @Html.ActionLink(category, "index", new { cat = category }, new { @class = "btn btn-info" })
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Filter End -->        
 
         <!-- Traffic Messages start -->
         <div class="col-lg-6">

@@ -10,18 +10,19 @@ using MVC.Models;
 
 namespace MVC.Controllers
 {
+
     public class MessageController : Controller
     {
-        public ActionResult Index(IndexViewModel indexViewModel)
+        public ActionResult Index()
         {
             var model = new IndexViewModel();
 
-            UpdateModel(indexViewModel);
+            UpdateModel(model);
 
             var refreshService = new TrafficMessageService();
 
-            model.Messages = refreshService.RefreshTrafficMessage();
-   
+            model.Messages = refreshService.RefreshTrafficMessage(model.Cat);
+
             return View(model);
         }
     }

@@ -13,7 +13,7 @@ namespace MVC.Models.Services
     {
         public _1dv449_aa223ig_Mashup _context = new _1dv449_aa223ig_Mashup();
 
-        public IEnumerable<Message> RefreshTrafficMessage()
+        public IEnumerable<Message> RefreshTrafficMessage(string cat)
         {
             SR sr = new SR();
 
@@ -25,9 +25,9 @@ namespace MVC.Models.Services
                 }
             }
 
-            if (!UseCachedMessages())
+            if (UseCachedMessages())
             {
-                return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(10);
+                return _context.ReadMessages().ToList<Message>().Where(m => m.Subcategory == cat).OrderByDescending(m => m.Createddate);
             }
             else
             {
@@ -47,7 +47,7 @@ namespace MVC.Models.Services
 
                 _context.SaveChanges();
 
-                return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(10);
+                return _context.ReadMessages().ToList<Message>().Where(m => m.Subcategory == cat).OrderByDescending(m => m.Createddate);
             }
 
         }
