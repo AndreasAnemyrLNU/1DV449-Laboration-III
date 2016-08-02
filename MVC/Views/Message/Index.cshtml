@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MVC.Models.Message>
+﻿@model MVC.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Lista Meddelande";
@@ -15,7 +15,7 @@
                     Trafikmeddelanden
                 </div>
                 <div class="panel panel-body messages-container">
-                    @Html.DisplayFor(m => m)     
+                    @Html.DisplayFor(m => m.Messages )     
                 </div>
             </div>
         </div>
@@ -36,6 +36,7 @@
 </div>
 
 <script>
+
     var map;
     var aa = { markers : [] };
     //Keep track if user has openen an infowindow previos. Close if not undefined!
@@ -47,34 +48,35 @@
             zoom: 6
         });
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Messages)
         {
+
             <text>
 
-        
-        var marker = new google.maps.Marker()
-        marker.setIcon("http://maps.google.com/mapfiles/kml/paddle/1.png");
-        marker.setTitle("@Html.Raw(item.Createddate)");
-        marker.setPosition({ lat: @item.Latitude, lng: @item.Longitude });
-        marker.setMap(map);
+                var marker = new google.maps.Marker()
+
+                marker.setIcon("@Html.Raw($"http://maps.google.com/mapfiles/kml/paddle/{item.Priority}.png")");
+                marker.setTitle("@Html.Raw(item.Createddate)");
+                marker.setPosition({ lat: @item.Latitude, lng: @item.Longitude });
+                marker.setMap(map);
 
                 var messageinfo = @Html.Partial("Message-Info", item);
                 var infowindow = new google.maps.InfoWindow({
-                    content: messageinfo
-                });
+                        content: messageinfo
+                    });
 
 
-                (function(infowindow, marker){google.maps.event.addListener(marker, 'click', function() {
-                    //Always close last opened info window!
-                    if(map.last != undefined)
-                        map.last.close();
+                    (function(infowindow, marker){google.maps.event.addListener(marker, 'click', function() {
+                        //Always close last opened info window!
+                        if(map.last != undefined)
+                            map.last.close();
 
 
-                    infowindow.open(map, marker);
-                    map.last = infowindow;
-                });})(infowindow, marker)
-                    
-            aa.markers.push(marker);
+                        infowindow.open(map, marker);
+                        map.last = infowindow;
+                    });})(infowindow, marker)
+
+                aa.markers.push(marker);
             </text>
         }
         }
@@ -93,12 +95,13 @@
             {
                 marker.setZIndex(999);
                 marker.setAnimation(google.maps.Animation.BOUNCE);
-                marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+                icon = marker.getIcon();
+                marker.setIcon("http://maps.google.com/mapfiles/kml/paddle/red-stars.png");
                 map.panTo(marker.getPosition());
                 //Reset marker
                 setTimeout(function(){ 
                     marker.setAnimation(null); 
-                    marker.setIcon("http://maps.google.com/mapfiles/ms/icons/red.png");
+                    marker.setIcon(icon);
                 }, 750);
             }
         })

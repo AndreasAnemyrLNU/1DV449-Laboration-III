@@ -12,7 +12,6 @@ namespace MVC.Models
     /// </summary>
     public class Message
     {
-
         public int Id { get; set; }             // Meddelandets unika id
         public int Priority { get; set; }       // Meddelandets prioritet(1 = Mycket allvarlig händelse, 2 = Stor händelse, 3 = Störning, 4 = Information, 5 = Mindre störning)
         [DisplayName("Skapades")]

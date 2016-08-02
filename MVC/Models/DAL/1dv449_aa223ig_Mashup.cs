@@ -43,7 +43,7 @@ namespace MVC.Models.DAL
 
         public void DeleteMessage(Message message)
         {
-            Messages.Remove(;
+            Messages.Remove(message);
         }
 
         public void Save()

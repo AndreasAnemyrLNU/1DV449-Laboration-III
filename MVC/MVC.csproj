@@ -168,6 +168,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\1dv449_aa223ig_Mashup.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Services\RefreshService.cs" />
     <Compile Include="Models\WebServices\SR.cs" />

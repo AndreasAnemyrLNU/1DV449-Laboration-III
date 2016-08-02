@@ -25,7 +25,7 @@ namespace MVC.Models.Services
                 }
             }
 
-            if (UseCachedMessages())
+            if (!UseCachedMessages())
             {
                 return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).Take(10);
             }
