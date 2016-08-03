@@ -1,7 +1,10 @@
 ﻿@model MVC.Models.Message
 <!-- contentstring for google infowindow -->
-'<h4>@Html.Raw(Model.Title)</h4>' +
-'<h4>@Html.Raw(Model.Category)</h4>' +
-'<h4>@Html.Raw(Model.Createddate)</h4>'
+'<h4>@Html.DisplayNameFor(model => model.Title)</h4>' +
+'<h6>@Html.DisplayFor(model => model.Title)</h6>' +
+'<h4>@Html.DisplayNameFor(model => model.Subcategory)</h4>' +
+'<h6>@Html.DisplayFor(model => model.Subcategory)</h6>' +
+'<h4>@Html.DisplayNameFor(model => model.Createddate)</h4>' +
+'<h6>@Html.DisplayFor(model => model.Createddate)</h6>' 
 
 

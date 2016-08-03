@@ -13,7 +13,9 @@ namespace MVC.Models.Services
     {
         public _1dv449_aa223ig_Mashup _context = new _1dv449_aa223ig_Mashup();
 
-        public IEnumerable<Message> RefreshTrafficMessage(string cat)
+        private const int minutesToCache = 15;
+
+        public IEnumerable<Message> RefreshTrafficMessage(int cat)
         {
             SR sr = new SR();
 
@@ -27,7 +29,15 @@ namespace MVC.Models.Services
 
             if (UseCachedMessages())
             {
-                return _context.ReadMessages().ToList<Message>().Where(m => m.Subcategory == cat).OrderByDescending(m => m.Createddate);
+                //TODO DRY DRY!!
+                if (cat == -1)
+                {
+                    return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate);
+                }
+                else
+                {
+                    return _context.ReadMessages().ToList<Message>().Where(m => m.Category == cat).OrderByDescending(m => m.Createddate);
+                }  
             }
             else
             {
@@ -47,7 +57,15 @@ namespace MVC.Models.Services
 
                 _context.SaveChanges();
 
-                return _context.ReadMessages().ToList<Message>().Where(m => m.Subcategory == cat).OrderByDescending(m => m.Createddate);
+                //TODO DRY DRY!!
+                if (cat == -1)
+                {
+                    return _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate);
+                }
+                else
+                {
+                    return _context.ReadMessages().ToList<Message>().Where(m => m.Category == cat).OrderByDescending(m => m.Createddate);
+                }
             }
 
         }
@@ -71,25 +89,15 @@ namespace MVC.Models.Services
 
         private bool UseCachedMessages()
         {
-            if (PreviousMessageExists())
-            {
-                try
-                {
+
                     var message = _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).First();
 
-                    if (message.CacheSaved.AddMinutes(1) < DateTime.Now)
+                    if (message.CacheSaved.AddMinutes(minutesToCache) < DateTime.Now)
                     {
-                        return true;
+                        return false;
                     }
-                }
-                catch
-                {
-                    //Empty
-                }
 
-
-            }
-            return false;
+            return true;
         }
     }
 }

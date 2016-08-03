@@ -8,48 +8,97 @@
     
         <!-- Filter Start -->
         <div class="container">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    Specificera Filtreringsalternativ!
-                </div>
-                <div class="panel-body">
-                    <div class="btn-group">
-                        @foreach (string category in Model.subCategories)
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Välj meddelanden!
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var category in Model.Categories)
                         {
-
-                            @Html.ActionLink(category, "index", new { cat = category }, new { @class = "btn btn-info" })
-
+                            @Html.ActionLink(category.Name, "index", new { cat = category.Id }, new { @class = "btn btn-info" })
                         }
+                    </div>
+                    <div class="panel-footer">
+                        <strong>Ny Cache var 15:e minut, dessa meddelanden cachades <strong>@Model.Messages.First().CacheSaved.ToLocalTime()</strong>
+</strong>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Filter End -->        
 
-        <!-- Traffic Messages start -->
-        <div class="col-lg-6">
-            <div class="panel panel-info">
-                <div class="panel panel-heading">
-                    Trafikmeddelanden
-                </div>
-                <div class="panel panel-body messages-container">
-                    @Html.DisplayFor(m => m.Messages )     
+        <div class="container">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- Traffic Messages start -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                @Model.Messages.Count() meddelande - @Model.Categories.Where(cat => cat.Id == Model.Cat).First().Name
+                            </div>
+                            <div class="panel-body messages-container">
+                                @Html.DisplayFor(m => m.Messages)
+                            </div>
+                            <div class="panel-footer">
+                                <!-- content footer here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Traffic Messages end -->
+                    <!-- Google Map API map Sweden start -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Aktuellt i Sverige jus nu!
+                            </div>
+                            <div id="map-panel" class="panel-body">
+                                <div id="map"></div>
+                            </div>
+                            <div class="panel-footer">
+                                <!-- content footer here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Google Map API  map Sweden cloed -->
+            </div>         
+        </div>
+
+
+        <!-- Reflektionsfrågor -->
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Reflektionsfrågor</div>
+                    <div class="panel panel-body">
+                        <!-- Punkt 1 -->
+                        <div class="well well-sm">
+                            <p><i><strong>Vad finns det för krav du måste anpassa dig efter i de olika API:erna</strong></i></p>
+                            <p>Svar: API:et som SR erbjuder gör det möjligt att välja hur meddelanden ska returneras. Ett krav på mashupen var att använda JSON. Detta medförde att jag var tvungen att specifiera i anropet att jag ville ha JSON i retur. XML ligger som standard.</p>
+                        </div>
+                        <!-- Punkt 2 -->
+                        <div class="well well-sm">
+                            <p><i><strong>Hur och hur länge cachar du ditt data för att slippa anropa api:erna i onödan</strong></i></p>
+                            <p>Svar: SR cachar data var 15:e minut. Anropet som ligger till grund för en uppdatering av en cache får i nuläget en lång svarstid. Funderat på att systemet själv står för cachning/uppdatering av data. Då blir inte användaren lidande om processen tar lite tid...</p>
+                        </div>
+                        <!-- Punkt 3, 4 -->
+                        <div class="well well-sm">
+                            <p><i><strong>Vad finns det för risker kring säkerhet och stabilitet i din applikation</strong></i></p>
+                            <p>Svar: För frontend bör säkerheten in vara något större problem. Det enda indatat som krävs är id för kategorin som ska visas. Applikationen är helt pubik, dvs den har inget inloggningssystem. Jag valde att skapa länkar med routevalues som binds i controllermetoden. Bindningen kan endast utföras på kategorin. Vad det gäller säkerhet för backend är det förhoppningsvis inte problem för applikationen vad gäller indata från klienten. Däremot bör valideringen genomgås på det data som hämtas från SR:s api och cachas. Teoretisk skulle det eventuellt vara möjligt att få in script bakvägen från den som har tillgån till SR:s API. Kanske lite långsökt, men bör vara möjligt. En stabilitetsbrist som kan inträffa är att det cachade datat, från SR, raderas samtidigt som AP:iet ligger nere. Då försivnner det cachade datat och inget kan visas förrän ny request till API:et är möjlig.</p>
+                        </div>
+                        <!-- Punkt 4 -->
+                        <div class="well well-sm">
+                            <p><i><strong>Hur har du tänkt kring säkerheten i din applikation</strong></i></p>
+                            <p>Svar: Föregående svar...</p>
+                        </div>
+                        <!-- Punkt 5 -->
+                        <div class="well well-sm">
+                            <p><i><strong>Hur har du tänkt kring optimering i din applikation</strong></i></p>
+                            <p>Svar: Jag har kontrollerat att bilderna för markers cachas i webbläsaren, vilket det gör (testa i chromes dev. mode). Det finns i nuläget några script som borde placeras om, men eftersom jag har prioriterar att få scripten att fungera snabbast möjligt har det inneburit att det finns förbättringspotential för detta. </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Traffic Messages end -->
-        <!-- Google Map API map Sweden start -->
-        <div class="col-lg-6">
-            <div class="panel panel-info">
-                <div class="panel panel-heading">
-                    Trafikkartan - Sverige
-                </div>
-                <div id="map-panel" class="panel panel-body">
-                    <div id="map"></div>
-                </div>
-            </div>
-        </div>
-        <!-- Google Map API  map Sweden cloed -->
 
 </div>
 

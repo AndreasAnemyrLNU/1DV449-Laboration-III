@@ -8,24 +8,71 @@ namespace MVC.Models
 {
     public class IndexViewModel
     {
+        public IndexViewModel()
+        {
+            //Vägtrafik
+            Categories.Add
+            (new Category
+            {
+                Id = -1,
+                Name = "Alla",
+            }
+            );
+
+            //Vägtrafik
+            Categories.Add
+            (new Category
+            {
+                Id = 0,
+                Name = "Vägtrafik",
+            }
+            );
+            
+            //Kollektivtrafik
+            Categories.Add
+            (new Category
+            {
+                Id = 1,
+                Name = "Kollektivtrafik",
+            }
+            );
+
+            //Planerad störning
+            Categories.Add
+            (new Category
+            {
+                Id = 2,
+                Name = "Planerad störning",
+            }
+            );
+
+            //Övrigt
+            Categories.Add
+            (new Category
+            {
+                Id = 3,
+                Name = "Övrigt",
+            }
+            );
+
+        }
+
+
         public IEnumerable<Message> Messages { get; set; }
 
-        public string Cat { get; set; }
+        public int Cat { get;  set;}
 
-        public IEnumerable<string> subCategories = new string[]
+        public List<Category> Categories = new List<Category>();
+
+        public class Category
         {
-                "Buss",
-                "Buller",
-                "Färja",
-                "Hälsa och sjukvård",
-                "Miljö",
-                "Pollen",
-                "Spårvagn",
-                "Trafikstörning",
-                "Tåg",
-                "Vatten",
-                "Väder",
-                "Vägarbete"
-        };
+            //http://sverigesradio.se/api/documentation/v2/metoder/trafik.html
+            //String dependency to db and SR API!
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+
+            //public IEnumerable<string> Items {get; set;}
+        }
     }
 }
