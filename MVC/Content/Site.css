@@ -99,15 +99,18 @@ a:active {
 
 .btn-info{
     background-color: #FF6051;
-    border-radius: 50px 50px 50px 50px;
-    font-weight: 500;
+    border-radius: 5px;
+    font-weight: 700;
     font-variant: small-caps;
-    letter-spacing: 1px;
-    margin: 4px;
-    border: 1px solid black;
-    border-bottom: 2px solid black;
-    width: 195px;
-    max-width: 100%;
+    font-size: 32px;
+    letter-spacing: 5px;
+    margin: 1px;
+    border-bottom: 3px solid black;
+    width: 100%;
+}
+
+.btn-info-selected{
+    opacity: 0.6;
 }
 
 .panel{
@@ -120,7 +123,7 @@ a:active {
 
 .panel-footer{
         background-image: url(background.png);
-    opacity: .4
+        opacity: .5;
 }
 
 

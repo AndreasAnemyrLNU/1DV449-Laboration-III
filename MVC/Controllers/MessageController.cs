@@ -13,17 +13,24 @@ namespace MVC.Controllers
 
     public class MessageController : Controller
     {
+        private TrafficMessageService refreshService = new TrafficMessageService();
+
         public ActionResult Index()
         {
             var model = new IndexViewModel();
 
             UpdateModel(model);
-
-            var refreshService = new TrafficMessageService();
-
             model.Messages = refreshService.RefreshTrafficMessage(model.Cat);
 
             return View(model);
         }
+
+        public ActionResult ReCache(IndexViewModel model)
+        {
+            //User cklicked update cache now!
+            refreshService.RefreshTrafficMessage(model.Cat, true);
+            return RedirectToAction("index", model);
+        }
+
     }
 }

@@ -13,21 +13,22 @@ namespace MVC.Models.Services
     {
         public _1dv449_aa223ig_Mashup _context = new _1dv449_aa223ig_Mashup();
 
+        //TODO Change 0 to 15. 0 is for testing with json request and i want to refresh every request...
         private const int minutesToCache = 15;
 
-        public IEnumerable<Message> RefreshTrafficMessage(int cat)
+        public IEnumerable<Message> RefreshTrafficMessage(int cat, bool recache = false)
         {
             SR sr = new SR();
 
             if (!PreviousMessageExists())
             {
-                foreach (var message in sr.GetMessages())
+                foreach (var message in sr.GetMessagesAsJSON())
                 {
                     _context.CreateMessage(message);
                 }
             }
 
-            if (UseCachedMessages())
+            if (UseCachedMessages() && recache == false)
             {
                 //TODO DRY DRY!!
                 if (cat == -1)
@@ -50,7 +51,7 @@ namespace MVC.Models.Services
                 _context.SaveChanges();
 
                 //Cache new messages
-                foreach (var message in sr.GetMessages())
+                foreach (var message in sr.GetMessagesAsJSON())
                 {
                     _context.CreateMessage(message);
                 }
@@ -90,7 +91,12 @@ namespace MVC.Models.Services
         private bool UseCachedMessages()
         {
 
-                    var message = _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).First();
+                    var message = _context.ReadMessages().ToList<Message>().OrderByDescending(m => m.Createddate).FirstOrDefault();
+
+                    if(message == null)
+                    {
+                        return false;
+                    }
 
                     if (message.CacheSaved.AddMinutes(minutesToCache) < DateTime.Now)
                     {

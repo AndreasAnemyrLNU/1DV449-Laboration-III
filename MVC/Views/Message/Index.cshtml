@@ -16,12 +16,19 @@
                     <div class="panel-body">
                         @foreach (var category in Model.Categories)
                         {
-                            @Html.ActionLink(category.Name, "index", new { cat = category.Id }, new { @class = "btn btn-info" })
+                            if (category.Id == Model.Cat)
+                            {
+                                @Html.ActionLink(category.Name, "index", new { cat = category.Id }, new { @class = "btn btn-info btn-info-selected" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(category.Name, "index", new { cat = category.Id }, new { @class = "btn btn-info" })
+                            }
                         }
                     </div>
                     <div class="panel-footer">
-                        <strong>Ny Cache var 15:e minut, dessa meddelanden cachades <strong>@Model.Messages.First().CacheSaved.ToLocalTime()</strong>
-</strong>
+                        Ny Cache var 15:e minut, dessa meddelanden cachades <strong>@Model.Messages.First().CacheSaved</strong>
+                        @Html.ActionLink("Uppdatera Cache!", "ReCache", new { cat = Model.Cat })
                     </div>
                 </div>
             </div>
@@ -34,7 +41,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                @Model.Messages.Count() meddelande - @Model.Categories.Where(cat => cat.Id == Model.Cat).First().Name
+                                @Model.Messages.Count() meddelande - @Model.Categories.Where(cat => cat.Id == Model.Cat).FirstOrDefault().Name
                             </div>
                             <div class="panel-body messages-container">
                                 @Html.DisplayFor(m => m.Messages)
