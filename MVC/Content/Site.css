@@ -126,6 +126,10 @@ a:active {
         opacity: .5;
 }
 
+#panel-reflection + * {
+    display: none;
+}
+
 
 
 
